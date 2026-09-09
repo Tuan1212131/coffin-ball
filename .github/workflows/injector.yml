@@ -15,7 +15,7 @@ jobs:
       - name: Compile
         run: |
           NDK=$ANDROID_HOME/ndk/27.2.12479018
-          $NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android33-clang -o inj.out injector/injector.c -static
+          $NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android33-clang -o inj.out injector/injector.c
           file inj.out
       - uses: actions/upload-artifact@v4
         with: { name: injector-bin, path: inj.out }
