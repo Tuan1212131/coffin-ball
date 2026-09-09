@@ -1,0 +1,16 @@
+name: Fetch frida-server
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: download frida-server
+        run: |
+          VER=16.3.3
+          curl -sL -o fs.xz "https://github.com/frida/frida/releases/download/${VER}/frida-server-${VER}-android-arm64.xz"
+          unxz -f fs.xz
+          mv fs frida-server
+          chmod 755 frida-server
+          file frida-server
+      - uses: actions/upload-artifact@v4
+        with: { name: frida-server-arm64, path: frida-server }
