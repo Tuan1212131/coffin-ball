@@ -1,0 +1,23 @@
+name: Build CoffinBall APK
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 17 }
+      - uses: android-actions/setup-android@v3
+      - name: Install NDK
+        run: |
+          sdkmanager --install "ndk;27.2.12479018" "cmake;3.22.1"
+          yes | sdkmanager --licenses > /dev/null 2>&1 || true
+      - name: Build
+        run: chmod +x gradlew && ./gradlew assembleDebug --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coffinball-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
