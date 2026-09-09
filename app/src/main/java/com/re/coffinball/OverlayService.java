@@ -22,7 +22,7 @@ import android.widget.Toast;
 public class OverlayService extends Service {
     private static final String SVC = "/sdcard/MT2/mcp/c16svc.sh";
     private WindowManager wm;
-    private View ball;
+    private TextView ball;
     private WindowManager.LayoutParams lp;
     private Handler h = new Handler(Looper.getMainLooper());
     private volatile boolean running = false;
